@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bdqn.mapper.PeItemsMapper">
+
+    <resultMap id="query" type="cn.bdqn.domain.PeItems">
+        <id property="intemId" column="intemId"></id>
+    </resultMap>
+
+
+    <!--查询全部-->
+    <select id="selectAll" resultMap="query">
+        select intemId,intemName,typeId,necessary,ref,price,info
+        from t_peitems
+
+    </select>
+
+
+    <!--添加对象-->
+    <insert id="insert" parameterType="cn.bdqn.domain.PeItems">
+        insert into  t_peitems(intemName,typeId,necessary,ref,price,info)
+        values (#{intemName},#{typeId},#{necessary},#{ref},#{price},#{info})
+    </insert>
+
+    <!--更新-->
+    <update id="updateByPeItems" parameterType="cn.bdqn.domain.PeItems">
+        update t_peitems
+        set intemName = #{intemName},typeId = #{typeId},necessary = #{necessary},ref = #{ref},price = #{price},info =#{info}
+        where intemId = #{intemId}
+    </update>
+
+
+    <resultMap id="queryMap" type="cn.bdqn.domain.PeItems">
+        <id column="intemId" property="intemId"/>
+        <result column="intemName" property="intemName"/>
+        <result column="typeId" property="typeId"/>
+        <result column="necessary" property="necessary"/>
+        <result column="ref" property="ref"/>
+        <result column="price" property="price"/>
+        <result column="info" property="info"/>
+        <association property="itemTypes" javaType="cn.bdqn.domain.ItemTypes">
+            <id property="typeId" column="type"/>
+            <result property="typeName" column="typeName"/>
+        </association>
+    </resultMap>
+    <!--根据id查询-->
+    <select id="selectByTypeId" resultMap="queryMap">
+        select p.intemId,p.intemName,p.typeId,p.necessary,p.ref,p.price,p.info,i.typeId as type,i.typeName
+        from t_peitems as p,t_itemtypes as i
+        <where>
+                p.typeId = i.typeId
+            <if test="typeId!=null and typeId!=0">
+                and  p.typeId = #{typeId}
+            </if>
+        </where>
+    </select>
+
+
+<!--    根据id查询信息-->
+    <select id="queryByIntemId" resultMap="query">
+
+        select intemId,intemName,typeId,necessary,ref,price,info
+        from t_peitems
+        where intemId = #{intemId}
+    </select>
+
+
+<!--    删除-->
+    <delete id="deleteByIntemId" >
+        delete from t_peitems
+        where intemId = #{intemId}
+    </delete>
+</mapper>

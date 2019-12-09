@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+
+    <settings>
+
+<!--        自动映射-->
+        <setting name="autoMappingBehavior" value="FULL"/>
+        <!--    开启延迟加载     -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--    将默认全部属性自动映射改为按需映射  -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <!--
+plugins在配置文件中的位置必须符合要求，否则会报错，顺序如下:
+properties?, settings?,
+typeAliases?, typeHandlers?,
+objectFactory?,objectWrapperFactory?,
+plugins?,
+environments?, databaseIdProvider?, mappers?
+-->
+<!--    <plugins>-->
+<!--        &lt;!&ndash; com.github.pagehelper为PageHelper类所在包名 &ndash;&gt;-->
+<!--        <plugin interceptor="com.github.pagehelper.PageInterceptor">-->
+<!--            &lt;!&ndash; 使用下面的方式配置参数，后面会有所有的参数介绍 &ndash;&gt;-->
+<!--            <property name="param1" value="value1"/>-->
+<!--        </plugin>-->
+<!--    </plugins>-->
+
+</configuration>
